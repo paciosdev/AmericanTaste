@@ -11,14 +11,28 @@ public class ProductBean implements Serializable {
 	String description;
 	int price;
 	int quantity;
+	int occurrencies;
 
 	public ProductBean() {
 		code = -1;
 		name = "";
 		description = "";
 		quantity = 0;
+		occurrencies = 1;
+	}
+	
+	public int getOccurrencies() {
+		return occurrencies;
+	}
+	
+	public void incrementOccurrencies() {
+		occurrencies++;
 	}
 
+	public void decrementOccurrencies() {
+		occurrencies--;
+	}
+	
 	public int getCode() {
 		return code;
 	}

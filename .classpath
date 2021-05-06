@@ -9,12 +9,15 @@
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
-	<classpathentry kind="con" path="org.eclipse.jst.server.core.container/org.eclipse.jst.server.tomcat.runtimeTarget/Apache Tomcat v9.0">
+	<classpathentry exported="true" kind="con" path="org.eclipse.jst.server.core.container/org.eclipse.jst.server.tomcat.runtimeTarget/Apache Tomcat v9.0">
 		<attributes>
 			<attribute name="owner.project.facets" value="jst.web"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/mysql-connector-java-8.0.12.jar"/>
+	<classpathentry exported="true" kind="lib" path="WebContent/WEB-INF/lib/mysql-connector-java-8.0.12.jar"/>
 	<classpathentry exported="true" kind="lib" path="mysql-connector-java-8.0.22.jar"/>
+	<classpathentry exported="true" kind="lib" path="/usr/local/apache-tomcat-9.0.43/bin/bootstrap.jar"/>
+	<classpathentry exported="true" kind="lib" path="/usr/local/apache-tomcat-9.0.43/bin/commons-daemon.jar"/>
+	<classpathentry exported="true" kind="lib" path="/usr/local/apache-tomcat-9.0.43/bin/tomcat-juli.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

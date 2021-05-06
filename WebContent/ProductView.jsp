@@ -10,7 +10,7 @@
 	
 	ProductBean product = (ProductBean) request.getAttribute("product");
 	
-	Cart cart = (Cart) request.getAttribute("cart");
+	
 %>
 
 <!DOCTYPE html>
@@ -78,22 +78,7 @@
 
 		<input type="submit" value="Add"><input type="reset" value="Reset">
 	</form>
-	<% if(cart != null) { %>
-		<h2>Cart</h2>
-		<table border="1">
-		<tr>
-			<th>Name</th>
-			<th>Action</th>
-		</tr>
-		<% List<ProductBean> prodcart = cart.getProducts(); 	
-		   for(ProductBean beancart: prodcart) {
-		%>
-		<tr>
-			<td><%=beancart.getName()%></td>
-			<td><a href="product?action=deleteC&id=<%=beancart.getCode()%>">Delete from cart</a></td>
-		</tr>
-		<%} %>
-	</table>		
-	<% } %>	
+	
+	<h1><a href="CartView.jsp" target="_blank">Vai al carrello</a></h1>
 </body>
 </html>
