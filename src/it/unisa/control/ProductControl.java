@@ -105,6 +105,9 @@ public class ProductControl extends HttpServlet {
 			if(action.equalsIgnoreCase("deleteC") || action.equalsIgnoreCase("addC")) {
 				RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/CartView.jsp");
 				dispatcher.forward(request, response);
+			}else if(action.equalsIgnoreCase("checkout")) {
+				RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/LoginPage.jsp");
+				dispatcher.forward(request, response);
 			}else{
 				RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/ProductView.jsp");
 				dispatcher.forward(request, response);
