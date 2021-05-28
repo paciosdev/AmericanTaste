@@ -15,9 +15,13 @@
       </head>
 	
       <body>
+       <jsp:include page="header.jsp" />
+      
          <center>
             Sorry, you are not a registered user! Please sign up first
          </center>
+         	 <jsp:include page="footer.jsp" />
+         
       </body>
 	
    </html>

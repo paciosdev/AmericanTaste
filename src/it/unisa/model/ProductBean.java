@@ -12,6 +12,20 @@ public class ProductBean implements Serializable {
 	int price;
 	int quantity;
 	int occurrencies;
+	float iva;
+	String type;
+	
+	public float getPriceWithIva() {
+		return price + price * (iva / 100);
+	}
+	
+	public float getIva() {
+		return iva;
+	}
+	
+	public void setIva(float x) {
+		this.iva=x;
+	}
 
 	public ProductBean() {
 		code = -1;
@@ -47,6 +61,14 @@ public class ProductBean implements Serializable {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+	
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
 	}
 
 	public String getDescription() {

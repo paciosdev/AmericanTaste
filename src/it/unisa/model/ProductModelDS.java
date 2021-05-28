@@ -37,7 +37,7 @@ public class ProductModelDS implements ProductModel {
 		PreparedStatement preparedStatement = null;
 
 		String insertSQL = "INSERT INTO " + ProductModelDS.TABLE_NAME
-				+ " (NAME, DESCRIPTION, PRICE, QUANTITY) VALUES (?, ?, ?, ?)";
+				+ " (nome, descrizione, prezzo, quantita,tipo, iva) VALUES (?, ?, ?, ?,?,?)";
 
 		try {
 			connection = ds.getConnection();
@@ -46,6 +46,8 @@ public class ProductModelDS implements ProductModel {
 			preparedStatement.setString(2, product.getDescription());
 			preparedStatement.setInt(3, product.getPrice());
 			preparedStatement.setInt(4, product.getQuantity());
+			preparedStatement.setString(5, product.getType());
+			preparedStatement.setFloat(6, product.getIva());
 
 			preparedStatement.executeUpdate();
 
@@ -68,7 +70,7 @@ public class ProductModelDS implements ProductModel {
 
 		ProductBean bean = new ProductBean();
 
-		String selectSQL = "SELECT * FROM " + ProductModelDS.TABLE_NAME + " WHERE CODE = ?";
+		String selectSQL = "SELECT * FROM " + ProductModelDS.TABLE_NAME + " WHERE id = ?";
 
 		try {
 			connection = ds.getConnection();
@@ -78,11 +80,12 @@ public class ProductModelDS implements ProductModel {
 			ResultSet rs = preparedStatement.executeQuery();
 
 			while (rs.next()) {
-				bean.setCode(rs.getInt("CODE"));
-				bean.setName(rs.getString("NAME"));
-				bean.setDescription(rs.getString("DESCRIPTION"));
-				bean.setPrice(rs.getInt("PRICE"));
-				bean.setQuantity(rs.getInt("QUANTITY"));
+				bean.setCode(rs.getInt("id"));
+				bean.setName(rs.getString("nome"));
+				bean.setDescription(rs.getString("descrizione"));
+				bean.setPrice(rs.getInt("prezzo"));
+				bean.setIva(rs.getFloat("iva"));
+				bean.setQuantity(rs.getInt("quantita"));
 			}
 
 		} finally {
@@ -147,11 +150,12 @@ public class ProductModelDS implements ProductModel {
 			while (rs.next()) {
 				ProductBean bean = new ProductBean();
 
-				bean.setCode(rs.getInt("CODE"));
-				bean.setName(rs.getString("NAME"));
-				bean.setDescription(rs.getString("DESCRIPTION"));
-				bean.setPrice(rs.getInt("PRICE"));
-				bean.setQuantity(rs.getInt("QUANTITY"));
+				bean.setCode(rs.getInt("id"));
+				bean.setName(rs.getString("nome"));
+				bean.setDescription(rs.getString("descrizione"));
+				bean.setPrice(rs.getInt("prezzo"));
+				bean.setIva(rs.getFloat("iva"));
+				bean.setQuantity(rs.getInt("quantita"));
 				products.add(bean);
 			}
 

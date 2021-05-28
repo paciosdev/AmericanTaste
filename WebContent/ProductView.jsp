@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8" import="it.unisa.model.UserBean"
+	%>
 
 <%
 	Collection<?> products = (Collection<?>) request.getAttribute("products");
@@ -10,7 +11,7 @@
 	
 	ProductBean product = (ProductBean) request.getAttribute("product");
 	
-	
+	UserBean currentUser = (UserBean) (session.getAttribute("currentSessionUser"));
 %>
 
 <!DOCTYPE html>
@@ -19,12 +20,19 @@
 
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<link href="ProductStyle.css" rel="stylesheet" type="text/css">
 	<title>Storage DS/BF</title>
+	<link rel="stylesheet" href="style.css">
+
 </head>
 
 <body>
-	<h2>Products</h2>
+
+ <jsp:include page="header.jsp" />
+ 
+ 	<%if (currentUser != null && currentUser.getIsAdmin()){%>
+ 		Sono un admin!
+ 	<%} %>
+ 	<h2>Products</h2>
 	<a href="product">List</a>
 	<table border="1">
 		<tr>
@@ -67,6 +75,12 @@
 		<label for="name">Name:</label><br> 
 		<input name="name" type="text" maxlength="20" required placeholder="enter name"><br> 
 		
+		<label for="type">Type:</label><br> 
+		<input name="type" type="text" maxlength="20" required placeholder="enter type"><br>
+		
+		<label for="iva">Iva:</label><br> 
+		<input name="iva" type="text" maxlength="20" required placeholder="enter iva"><br>
+		
 		<label for="description">Description:</label><br>
 		<textarea name="description" maxlength="100" rows="3" required placeholder="enter description"></textarea><br>
 		
@@ -77,8 +91,9 @@
 		<input name="quantity" type="number" min="1" value="1" required><br>
 
 		<input type="submit" value="Add"><input type="reset" value="Reset">
+		
 	</form>
+ <jsp:include page="footer.jsp" />
 	
-	<h1><a href="CartView.jsp" target="_blank">Vai al carrello</a></h1>
 </body>
 </html>

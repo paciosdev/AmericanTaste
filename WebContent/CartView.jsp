@@ -16,6 +16,8 @@
 <title>Cart</title>
 </head>
 <body>
+ <jsp:include page="header.jsp" />
+
 <% if(cart != null && !cart.getProducts().isEmpty()) { %>
 		<h2>Cart</h2>
 		<table border="1">
@@ -33,9 +35,7 @@
 			<td><%=beancart.getName()%></td>
 			<td><a href="product?action=deleteC&id=<%=beancart.getCode()%>">Delete x1</a> <a href="product?action=addC&id=<%=beancart.getCode()%>">Add x1</a></td>
 			<td><%=beancart.getOccurrencies()%></td>
-			<td><%=beancart.getPrice() * beancart.getOccurrencies() %></td>
-			
-			
+			<td><%=(beancart.getPrice()+beancart.getPrice()* beancart.getIva()/100 )* beancart.getOccurrencies()  %></td>
 			
 		</tr>
 		
@@ -49,6 +49,9 @@
 	<h1>Carrello vuoto</h1>
 	
 	<%} %>
+	
+	 <jsp:include page="footer.jsp" />
+	
 	
 </body>
 </html>

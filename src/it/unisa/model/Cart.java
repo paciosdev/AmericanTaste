@@ -16,7 +16,9 @@ public class Cart {
 		double total = 0.0;
 		
 		for(ProductBean p : products) {
-			total += p.getPrice();
+			for(int i = 0; i < p.occurrencies; i++) {
+				total += p.getPriceWithIva();
+			}
 		}
 		
 		return total;

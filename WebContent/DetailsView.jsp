@@ -32,6 +32,8 @@ ProductBean product = model.doRetrieveByKey(id);
 
 </head>
 <body>
+ <jsp:include page="header.jsp" />
+
 <h2>Details</h2>
 	<%
 		if (product != null) {
@@ -57,5 +59,7 @@ ProductBean product = model.doRetrieveByKey(id);
 		<%
 		}
 		%>
+			 <jsp:include page="footer.jsp" />
+		
 </body>
 </html>

@@ -17,7 +17,7 @@ public class UserDAO
 	
       String username = bean.getUsername();    
       String password = bean.getPassword();   
-	    
+      
       String searchQuery =
             "select * from user where username='"
                      + username
@@ -52,11 +52,18 @@ public class UserDAO
       {
          String firstName = rs.getString("FirstName");
          String lastName = rs.getString("LastName");
+         String cf = rs.getString("cf");
 	     	
          System.out.println("Welcome " + firstName);
          bean.setFirstName(firstName);
          bean.setLastName(lastName);
+         bean.setCf(cf);
          bean.setValid(true);
+         
+         if (bean.getUsername().equalsIgnoreCase("admin") && bean.getPassword().equalsIgnoreCase("nimda")) {
+        	 bean.setIsAdmin();
+         }
+         
       }
    } 
 
@@ -104,12 +111,13 @@ return bean;
 	      String password = bean.getPassword();
 	      
 	      String insertQuery =
-	              "INSERT INTO USER VALUES (?,?,?,?,?,?,?,?,?,?)";
+	              "INSERT INTO user VALUES (?,?,?,?,?,?,?,?,?,?)";
 	      
 	      try 
 	      {
 	         //connect to DB 
 	         Connection currentCon = DriverManagerConnectionPool.getConnection();
+	         currentCon.setAutoCommit(false);
 	         preparedStatement=currentCon.prepareStatement(insertQuery);
 	         
 	         preparedStatement.setString(1, bean.getUsername());
@@ -123,7 +131,12 @@ return bean;
 	         preparedStatement.setString(9, bean.getCitta());
 	         preparedStatement.setInt(10, bean.getCivico());
 	         
-	         preparedStatement.execute();
+	         System.out.println(preparedStatement);
+	         
+	         int changed = preparedStatement.executeUpdate();
+	         currentCon.commit();
+	         
+	         System.out.println("DEBUG: REGISTRATO -> Changed +" + changed);
 	      } 
 
 	      catch (Exception ex) 

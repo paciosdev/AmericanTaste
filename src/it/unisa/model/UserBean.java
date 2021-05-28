@@ -12,6 +12,15 @@ public class UserBean {
     private String provincia;
     private String citta;
     private int civico;
+    private boolean isAdmin = false;
+    
+    public void setIsAdmin() {
+    	this.isAdmin = true;
+    }
+    
+    public boolean getIsAdmin() {
+    	return this.isAdmin;
+    }
     
     public boolean valid;
 	
@@ -107,5 +116,6 @@ public class UserBean {
 	public void setEmail(String email) {
 		this.email = email;
 	}	
+
 }
 

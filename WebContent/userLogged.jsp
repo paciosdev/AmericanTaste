@@ -26,12 +26,15 @@ if ((currentUser==null)||(!currentUser.isValid()))
       </head>
 	
       <body>
+       <jsp:include page="header.jsp" />
+      
 
          <center>
             
 			
             Welcome <%= currentUser.getFirstName() + " " + currentUser.getLastName() %>
          </center>
+	 <jsp:include page="footer.jsp" />
 
       </body>
 	

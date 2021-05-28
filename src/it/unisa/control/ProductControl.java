@@ -54,9 +54,11 @@ public class ProductControl extends HttpServlet {
 				if (action.equalsIgnoreCase("addC")) {
 					int id = Integer.parseInt(request.getParameter("id"));
 					cart.addProduct(model.doRetrieveByKey(id));
+					request.getSession().setAttribute("cart", cart);
 				} else if (action.equalsIgnoreCase("deleteC")) {
 					int id = Integer.parseInt(request.getParameter("id"));
 					cart.deleteProduct(model.doRetrieveByKey(id));
+					request.getSession().setAttribute("cart", cart);
 				} else if (action.equalsIgnoreCase("read")) {
 					int id = Integer.parseInt(request.getParameter("id"));
 					request.removeAttribute("product");
@@ -65,11 +67,14 @@ public class ProductControl extends HttpServlet {
 					int id = Integer.parseInt(request.getParameter("id"));
 					model.doDelete(id);
 				} else if(action.equalsIgnoreCase("checkout")) {
-					request.getSession().setAttribute("cart", null);
-					cart = null;
+					System.out.println("giggin è tant " + cart.getTotalPrice());
+					//request.getSession().setAttribute("cart", null);
+					//cart = null;
 				} else if (action.equalsIgnoreCase("insert")) {
 					String name = request.getParameter("name");
 					String description = request.getParameter("description");
+					String type = request.getParameter("type");
+					float iva = Integer.parseInt(request.getParameter("iva"));
 					int price = Integer.parseInt(request.getParameter("price"));
 					int quantity = Integer.parseInt(request.getParameter("quantity"));
 
@@ -77,6 +82,8 @@ public class ProductControl extends HttpServlet {
 					bean.setName(name);
 					bean.setDescription(description);
 					bean.setPrice(price);
+					bean.setType(type);
+					bean.setIva(iva);
 					bean.setQuantity(quantity);
 					model.doSave(bean);
 				}
@@ -106,7 +113,8 @@ public class ProductControl extends HttpServlet {
 				RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/CartView.jsp");
 				dispatcher.forward(request, response);
 			}else if(action.equalsIgnoreCase("checkout")) {
-				RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/LoginPage.jsp");
+				RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/LoginPage.jsp?action=checkout");
+				//TODO 
 				dispatcher.forward(request, response);
 			}else{
 				RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/ProductView.jsp");

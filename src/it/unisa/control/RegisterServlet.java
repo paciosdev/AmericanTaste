@@ -10,12 +10,12 @@ import javax.servlet.http.HttpSession;
 import it.unisa.model.UserBean;
 import it.unisa.model.UserDAO;
 import javax.servlet.annotation.*;
-@WebServlet("/Login")
+@WebServlet("/Register")
 
 /**
  * Servlet implementation class LoginServlet
  */
-public class LoginServlet extends HttpServlet {
+public class RegisterServlet extends HttpServlet {
 
 
 /**
@@ -28,35 +28,29 @@ public void doGet(HttpServletRequest request, HttpServletResponse response)
 
 try
 {	    
-    System.out.println("sono qui");
-
-	
-	 String action = request.getParameter("action");
-	 
-	 System.out.println("ACTION: - " + action);
 
      UserBean user = new UserBean();
-     user.setUserName(request.getParameter("un"));
-     user.setPassword(request.getParameter("pw"));
-     
-     user = UserDAO.doRetrieve(user);
-     
-    
-     
+     user.setUserName(request.getParameter("username"));
+     user.setEmail(request.getParameter("email"));
+     user.setPassword(request.getParameter("password"));
+     user.setFirstName(request.getParameter("firstName"));
+     user.setLastName(request.getParameter("lastName"));
+	 user.setCf(request.getParameter("cf"));
+     user.setRegione(request.getParameter("regione"));
+	 user.setProvincia(request.getParameter("provincia"));
+	 user.setCitta(request.getParameter("citta"));
+	 user.setCivico(Integer.parseInt(request.getParameter("civico")));
+	 user.setValid(true);
+	 
+	 UserDAO.register(user);
+	   		    
      if (user.isValid())
      {
-	      System.out.println("Ection è " + action);
+	        
           HttpSession session = request.getSession(true);	    
           session.setAttribute("currentSessionUser",user); 
-          if (action.equalsIgnoreCase("checkout")) {
-        	  response.sendRedirect("ConfirmOrderPage.jsp");   
-          }else {
-        	  response.sendRedirect("ProductView.jsp");
-          }
+          response.sendRedirect("ProductView.jsp"); //home page    		
      }
-	        
-     else 
-          response.sendRedirect("invalidLogin.jsp"); //error page 
 } 
 		
 		
