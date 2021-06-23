@@ -9,7 +9,7 @@
 <body>
  <jsp:include page="header.jsp" />
 
- <form action="Register">
+ <form name="registerForm" action="Register" onSubmit="return validateForm()">
   <label for="username">Username:</label><br>
   <input type="text" id="username" name="username"><br>
   <label for="email">Email:</label><br>
@@ -34,7 +34,31 @@
   <input type="submit" value="Registrati">
   
 </form> 
+
+<h2 id="errorMessage"></h2>
 	 <jsp:include page="footer.jsp" />
+	 
+	 <script>
+		function validateForm(){
+
+			var cf = document.forms["registerForm"]["cf"].value
+			
+			return validateCF(cf)
+		
+		}
+		
+		function validateCF(cf) 
+		{
+			var re = /^[A-Z0-9]{16}$/
+			
+			if (cf.match(re)){
+				return true
+			}
+			
+			alert("Codice fiscale non valido")
+			return false
+		}
+	 </script>
 
 </body>
 </html>

@@ -53,16 +53,17 @@ public class UserDAO
          String firstName = rs.getString("FirstName");
          String lastName = rs.getString("LastName");
          String cf = rs.getString("cf");
+         boolean isAdmin  = rs.getBoolean("isAdmin");
 	     	
-         System.out.println("Welcome " + firstName);
+         if (isAdmin) {
+        	 bean.setIsAdmin();
+         }
          bean.setFirstName(firstName);
          bean.setLastName(lastName);
          bean.setCf(cf);
          bean.setValid(true);
          
-         if (bean.getUsername().equalsIgnoreCase("admin") && bean.getPassword().equalsIgnoreCase("nimda")) {
-        	 bean.setIsAdmin();
-         }
+        
          
       }
    } 
@@ -103,7 +104,7 @@ return bean;
 	
    }	
 
-   public static void register(UserBean bean) {
+   public static UserBean register(UserBean bean) {
 	   Statement stmt = null;    
 	      PreparedStatement preparedStatement = null;
 		
@@ -111,7 +112,9 @@ return bean;
 	      String password = bean.getPassword();
 	      
 	      String insertQuery =
-	              "INSERT INTO user VALUES (?,?,?,?,?,?,?,?,?,?)";
+	              "INSERT INTO user VALUES (?,?,?,?,?,?,?,?,?,?,?)";
+	      
+	      UserBean user = bean;
 	      
 	      try 
 	      {
@@ -130,13 +133,19 @@ return bean;
 	         preparedStatement.setString(8, bean.getProvincia());
 	         preparedStatement.setString(9, bean.getCitta());
 	         preparedStatement.setInt(10, bean.getCivico());
+	         preparedStatement.setBoolean(11, false);
 	         
 	         System.out.println(preparedStatement);
 	         
 	         int changed = preparedStatement.executeUpdate();
 	         currentCon.commit();
 	         
-	         System.out.println("DEBUG: REGISTRATO -> Changed +" + changed);
+	         if (changed == 1) {
+	        	 user.setValid(true);
+	         }
+	         
+	         return user;
+	         
 	      } 
 
 	      catch (Exception ex) 
@@ -170,6 +179,7 @@ return bean;
 	            currentCon = null;
 	         }
 	      }
+		return user;
    }
 }
 

@@ -40,16 +40,18 @@ try
 	 user.setProvincia(request.getParameter("provincia"));
 	 user.setCitta(request.getParameter("citta"));
 	 user.setCivico(Integer.parseInt(request.getParameter("civico")));
-	 user.setValid(true);
 	 
-	 UserDAO.register(user);
+	 
+	 user = UserDAO.register(user);
 	   		    
      if (user.isValid())
      {
-	        
           HttpSession session = request.getSession(true);	    
           session.setAttribute("currentSessionUser",user); 
           response.sendRedirect("ProductView.jsp"); //home page    		
+     } else {
+         response.sendRedirect("RegisterPage.jsp"); //register page    		
+
      }
 } 
 		

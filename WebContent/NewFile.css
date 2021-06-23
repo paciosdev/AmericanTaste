@@ -1,0 +1,347 @@
+@charset "UTF-8";
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,500;1,400&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+#red{
+	color: red;
+}
+
+h1,h2,h3{
+	margin: 10px
+}
+
+.title{
+	margin: 30px;
+	font-size: 3em;
+}
+
+html {
+	height: 100%;
+    font-size: 80%;
+    font-family: 'Roboto', sans-serif;
+}
+
+body{
+   min-height: 100vh;
+   
+  display: flex;
+  
+  flex-direction: column;
+  
+  height:100vh; margin:0;
+  
+  text-align: center;
+}
+
+li {
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+}
+
+.header, footer{
+	background-color: red;
+	padding: 20px;
+    border-bottom: 1px solid #E2E8F0;
+}
+
+
+
+footer {
+	margin-top:auto; 
+    min-height:100px;
+	display: flex;
+	justify-content: center;
+    align-items: center;
+    font-size: 100%;
+   
+    padding: 1rem;
+    text-align: center;
+    color: #fff;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 1.5rem;
+}
+
+.hamburger {
+    display: none;
+}
+
+.bar {
+    display: block;
+    width: 25px;
+    height: 3px;
+    margin: 5px auto;
+    -webkit-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+    background-color: #fff;
+}
+
+.nav-menu {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.nav-item {
+    margin-left: 5rem;
+}
+
+.nav-link{
+    font-size: 1.6rem;
+    font-weight: 400;
+    color: #fff;
+}
+
+.nav-link:hover{
+    color: #482ff7;
+        transition: all 0.3s ease-in-out;
+    
+}
+
+.nav-logo {
+    font-size: 2.1rem;
+    font-weight: 500;
+    color: #fff;
+}
+
+
+
+.img{
+	width: 100vw
+}
+
+.disabled{
+	  pointer-events: none;
+}
+
+button{
+	padding: 10px;
+	margin: 5px;
+	background-color: white;
+	border: 4px solid blue;
+	color: blue;
+	border-radius: 8px;
+	font-weight: bold;
+	cursor: pointer;
+	width: 150px;
+}
+
+button:hover{
+		background-color: blue;
+		color: #fff;
+    transition: all 0.3s ease-in-out;
+	
+}
+
+.productCell{
+	margin: 30px;
+}
+
+.wrapper {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+}
+
+.wrapper img{
+	margin: 30px
+}
+
+#errorMessage{
+	color: red;
+}
+
+.searchBox{
+	  width: 100%;
+	  text-align: center;
+}
+.searchBox input[name="searchField"] {
+  padding: 6px;
+background-color: white;
+	border: 2px solid blue;
+	color: blue;
+	border-radius: 8px;
+  margin-right: 16px;
+  font-size: 17px;
+}
+
+
+table,th,tr,td{
+	border: none !important;
+}
+
+table{
+	width: 50%;
+}
+
+.tableContainer{
+	display: flex;
+	justify-content: center;
+}
+
+/*CONTACT FORM*/
+
+.contactForm{
+    width: 100%;
+    height: auto;
+    background-color: rgb(52, 87, 243);
+    color:aliceblue;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    padding: 1em;
+    box-shadow: 5px 10px rgba(0, 0, 0,0.2);
+    
+}
+
+.contactForm input, textarea{
+    font-size: 12px;
+    margin: 20px;
+    padding: 20px;
+    background-color: aliceblue;
+    border: none;
+    border-radius: 8px;
+    width: 40%;
+    resize: none;
+}
+
+.contactForm button{
+    color: white;
+    font-size: 24px;
+    border-radius: 8px;
+    cursor: pointer;
+    margin: 20px;
+    padding: 20px;
+    width: 40%;
+    border: none;
+    background-color: rgb(243, 83, 83);
+
+}
+
+/*END CONTACT FORM*/
+
+/*CHI SIAMO PAGE*/
+
+#chiSiamoContainer{
+	display: flex;
+	padding: 40px;
+	margin: 40px;
+}
+
+#chiSiamoContainer #details{
+	
+}
+
+/*END CHI SIAMO PAGE*/
+
+.centerContainer{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.detailBox{
+	display: flex;
+	margin: 30px 0 0 0 ;
+}
+
+#details{
+	display: block;
+	margin: 0 0 0 70px;
+}
+
+#details h1,h2{
+	padding: 15px;	
+}
+
+#details h2{
+	color: gray;
+	font-weight: 20;
+}
+
+.gmap_canvas{
+	border-radius: 20px;
+}
+
+#loginForm input{
+	font-size: 12px;
+    margin: 20px;
+    padding: 20px;
+    background-color: aliceblue;
+    border: none;
+    border-radius: 8px;
+    width: 40%;
+    resize: none;
+}
+
+
+.loginContainer{
+	display: block;
+}
+
+@media only screen and (max-width: 1000px) {
+	
+	#chiSiamoContainer{
+		display: block;
+	}
+	
+	#details{
+		margin: 0;
+		padding: 10px 0;
+	}
+	
+	.detailBox{
+		display: block;
+		margin: 30px 0 0 0 ;
+		padding: 10px 0;
+	}
+	
+	#details h1,h2{
+	padding: 0;	
+	padding: 10px 0;
+}
+	
+    .nav-menu {
+        position: fixed;
+        left: -100%;
+        top: 5rem;
+        flex-direction: column;
+        background-color: red;
+        width: 100%;
+        border-radius: 10px;
+        text-align: center;
+        transition: 0.3s;
+        box-shadow:
+            0 10px 27px rgba(0, 0, 0, 0.05);
+    }
+
+    .nav-menu.active {
+        left: 0;
+    }
+
+    .nav-item {
+        margin: 2.5rem 0;
+    }
+
+    .hamburger {
+        display: block;
+        cursor: pointer;
+    }
+
+}
+
+a.disabled {
+  pointer-events: none;
+  cursor: default;
+}
+.adminPanelContainer{display: block;}

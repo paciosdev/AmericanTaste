@@ -51,9 +51,11 @@ public class ConfirmOrderServlet extends HttpServlet {
 			request.getSession().setAttribute("currentSessionUser", user);
 		}
 		
-
-		
 		OrderDAO.addOrder(cart, user);
+		
+		
+		
+		request.getSession().setAttribute("cart", null);
 		
 		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/ProductView.jsp");
 		dispatcher.forward(request, response);

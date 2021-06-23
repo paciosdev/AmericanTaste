@@ -28,12 +28,10 @@ public void doGet(HttpServletRequest request, HttpServletResponse response)
 
 try
 {	    
-    System.out.println("sono qui");
 
 	
 	 String action = request.getParameter("action");
 	 
-	 System.out.println("ACTION: - " + action);
 
      UserBean user = new UserBean();
      user.setUserName(request.getParameter("un"));
@@ -45,14 +43,21 @@ try
      
      if (user.isValid())
      {
-	      System.out.println("Ection è " + action);
-          HttpSession session = request.getSession(true);	    
+          HttpSession session = request.getSession(true);
+          
+          
           session.setAttribute("currentSessionUser",user); 
-          if (action.equalsIgnoreCase("checkout")) {
-        	  response.sendRedirect("ConfirmOrderPage.jsp");   
-          }else {
+          
+          
+          if (action == null) {
         	  response.sendRedirect("ProductView.jsp");
           }
+          
+        	  request.setAttribute("action", "checkout");
+        	  if (action.equalsIgnoreCase("checkout")) {
+            	  response.sendRedirect("ConfirmOrderPage.jsp");   
+              }
+          
      }
 	        
      else 

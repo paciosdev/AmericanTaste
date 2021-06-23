@@ -1,5 +1,7 @@
 package it.unisa.model;
 
+import java.io.InputStream;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -7,10 +9,18 @@ import java.sql.SQLException;
 import java.util.Collection;
 import java.util.LinkedList;
 
+import javax.imageio.ImageIO;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
+
+import com.mysql.cj.jdbc.Blob;
+
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.FileOutputStream;
 
 public class ProductModelDS implements ProductModel {
 
@@ -37,7 +47,7 @@ public class ProductModelDS implements ProductModel {
 		PreparedStatement preparedStatement = null;
 
 		String insertSQL = "INSERT INTO " + ProductModelDS.TABLE_NAME
-				+ " (nome, descrizione, prezzo, quantita,tipo, iva) VALUES (?, ?, ?, ?,?,?)";
+				+ " (nome, descrizione, prezzo, quantita,tipo, iva, image) VALUES (?, ?, ?, ?,?,?,?)";
 
 		try {
 			connection = ds.getConnection();
@@ -48,8 +58,9 @@ public class ProductModelDS implements ProductModel {
 			preparedStatement.setInt(4, product.getQuantity());
 			preparedStatement.setString(5, product.getType());
 			preparedStatement.setFloat(6, product.getIva());
+			preparedStatement.setBlob(7, product.getImage());
 
-			preparedStatement.executeUpdate();
+			int x = preparedStatement.executeUpdate();
 
 			connection.commit();
 		} finally {
@@ -78,6 +89,8 @@ public class ProductModelDS implements ProductModel {
 			preparedStatement.setInt(1, code);
 
 			ResultSet rs = preparedStatement.executeQuery();
+			
+			
 
 			while (rs.next()) {
 				bean.setCode(rs.getInt("id"));
@@ -86,6 +99,10 @@ public class ProductModelDS implements ProductModel {
 				bean.setPrice(rs.getInt("prezzo"));
 				bean.setIva(rs.getFloat("iva"));
 				bean.setQuantity(rs.getInt("quantita"));
+				bean.setType(rs.getString("tipo"));
+				
+				bean.setImage(new ByteArrayInputStream(rs.getBytes("image")));
+				
 			}
 
 		} finally {
@@ -99,6 +116,52 @@ public class ProductModelDS implements ProductModel {
 		}
 		return bean;
 	}
+	
+	@Override
+	public synchronized Collection<ProductBean> doRetrieveByName(String name) throws SQLException {
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+
+		Collection<ProductBean> products = new LinkedList<ProductBean>();
+
+		String selectSQL = "SELECT * FROM " + ProductModelDS.TABLE_NAME;
+
+		try {
+			connection = ds.getConnection();
+			preparedStatement = connection.prepareStatement(selectSQL);
+
+			ResultSet rs = preparedStatement.executeQuery();
+			
+			
+
+			while (rs.next()) {
+				ProductBean bean = new ProductBean();
+				
+				bean.setCode(rs.getInt("id"));
+				bean.setName(rs.getString("nome"));
+				bean.setDescription(rs.getString("descrizione"));
+				bean.setPrice(rs.getInt("prezzo"));
+				bean.setIva(rs.getFloat("iva"));
+				bean.setQuantity(rs.getInt("quantita"));
+				
+				bean.setImage(new ByteArrayInputStream(rs.getBytes("image")));
+				
+				if (bean.getName().contains(name)) {
+					products.add(bean);
+				}
+			}
+
+		} finally {
+			try {
+				if (preparedStatement != null)
+					preparedStatement.close();
+			} finally {
+				if (connection != null)
+					connection.close();
+			}
+		}
+		return products;
+	}
 
 	@Override
 	public synchronized boolean doDelete(int code) throws SQLException {
@@ -107,7 +170,7 @@ public class ProductModelDS implements ProductModel {
 
 		int result = 0;
 
-		String deleteSQL = "DELETE FROM " + ProductModelDS.TABLE_NAME + " WHERE CODE = ?";
+		String deleteSQL = "DELETE FROM " + ProductModelDS.TABLE_NAME + " WHERE id = ?";
 
 		try {
 			connection = ds.getConnection();
@@ -156,6 +219,8 @@ public class ProductModelDS implements ProductModel {
 				bean.setPrice(rs.getInt("prezzo"));
 				bean.setIva(rs.getFloat("iva"));
 				bean.setQuantity(rs.getInt("quantita"));
+				bean.setImage(new ByteArrayInputStream(rs.getBytes("image")));
+				
 				products.add(bean);
 			}
 

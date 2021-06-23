@@ -1,5 +1,6 @@
 package it.unisa.model;
 
+import java.io.InputStream;
 import java.io.Serializable;
 
 public class ProductBean implements Serializable {
@@ -14,7 +15,16 @@ public class ProductBean implements Serializable {
 	int occurrencies;
 	float iva;
 	String type;
-	
+	InputStream image;
+
+	public InputStream getImage() {
+		return image;
+	}
+
+	public void setImage(InputStream image) {
+		this.image = image;
+	}
+
 	public float getPriceWithIva() {
 		return price + price * (iva / 100);
 	}
@@ -41,6 +51,10 @@ public class ProductBean implements Serializable {
 	
 	public void incrementOccurrencies() {
 		occurrencies++;
+	}
+	
+	public void setOccurrencies(int occurrencies) {
+		this.occurrencies = occurrencies;
 	}
 
 	public void decrementOccurrencies() {

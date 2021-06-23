@@ -1,13 +1,16 @@
 package it.unisa.control;
 
-import java.io.IOException;  
+import java.io.IOException;
+import java.io.InputStream;
 import java.sql.SQLException;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
 
 import it.unisa.model.ProductModel;
 import it.unisa.model.ProductModelDM;
@@ -17,6 +20,7 @@ import it.unisa.model.ProductBean;
 /**
  * Servlet implementation class ProductControl
  */
+@MultipartConfig
 public class ProductControl extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -53,11 +57,17 @@ public class ProductControl extends HttpServlet {
 			if (action != null) {
 				if (action.equalsIgnoreCase("addC")) {
 					int id = Integer.parseInt(request.getParameter("id"));
-					cart.addProduct(model.doRetrieveByKey(id));
+					ProductBean product = model.doRetrieveByKey(id);
+					if (product.getOccurrencies() < product.getQuantity()) {
+						cart.addProduct(model.doRetrieveByKey(id));
+					}
 					request.getSession().setAttribute("cart", cart);
 				} else if (action.equalsIgnoreCase("deleteC")) {
 					int id = Integer.parseInt(request.getParameter("id"));
-					cart.deleteProduct(model.doRetrieveByKey(id));
+					ProductBean product = model.doRetrieveByKey(id);
+					if (product.getOccurrencies() > 0) {
+						cart.deleteProduct(model.doRetrieveByKey(id));
+					}
 					request.getSession().setAttribute("cart", cart);
 				} else if (action.equalsIgnoreCase("read")) {
 					int id = Integer.parseInt(request.getParameter("id"));
@@ -67,24 +77,26 @@ public class ProductControl extends HttpServlet {
 					int id = Integer.parseInt(request.getParameter("id"));
 					model.doDelete(id);
 				} else if(action.equalsIgnoreCase("checkout")) {
-					System.out.println("giggin è tant " + cart.getTotalPrice());
-					//request.getSession().setAttribute("cart", null);
-					//cart = null;
+					
 				} else if (action.equalsIgnoreCase("insert")) {
+					System.out.println("SI STO QUA insert");
+
 					String name = request.getParameter("name");
 					String description = request.getParameter("description");
 					String type = request.getParameter("type");
 					float iva = Integer.parseInt(request.getParameter("iva"));
 					int price = Integer.parseInt(request.getParameter("price"));
 					int quantity = Integer.parseInt(request.getParameter("quantity"));
-
+					
 					ProductBean bean = new ProductBean();
+					
 					bean.setName(name);
 					bean.setDescription(description);
 					bean.setPrice(price);
 					bean.setType(type);
 					bean.setIva(iva);
 					bean.setQuantity(quantity);
+					bean.setImage(request.getPart("image").getInputStream());
 					model.doSave(bean);
 				}
 			}			

@@ -34,28 +34,24 @@ ProductBean product = model.doRetrieveByKey(id);
 <body>
  <jsp:include page="header.jsp" />
 
-<h2>Details</h2>
 	<%
 		if (product != null) {
 	%>
-	<table border="1">
-		<tr>
-			<th>Code</th>
-			<th>Name</th>
-			<th>Description</th>
-			<th>Price</th>
-			<th>Quantity</th>
-			<th>Action</th>
-		</tr>
-		<tr>
-			<td><%=product.getCode()%></td>
-			<td><%=product.getName()%></td>
-			<td><%=product.getDescription()%></td>
-			<td><%=product.getPrice()%></td>
-			<td><%=product.getQuantity()%></td>
-			<td><a href="product?action=addC&id=<%=id%>">Add to cart</a></td>
-		</tr>
-	</table>
+	<div class="centerContainer">
+		<div class="detailBox">
+			<img src="VisualizzaImmagine?prodId=<%=product.getCode()%>" width="200" height="200">
+			<div id="details">
+				<h1><%=product.getName() %></h1>
+				<h2><%=product.getDescription() %></h2>
+				<h2>Tipo: <%=product.getType() %></h2>
+				<h1><%=product.getPrice() %>$</h1>
+				
+				<a href="product?action=addC&id=<%=product.getCode()%>"><button id="addToCart">Add to Cart</button></a>
+			</div>	
+				
+		</div>
+		
+	</div>
 		<%
 		}
 		%>
